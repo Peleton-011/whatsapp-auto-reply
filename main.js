@@ -1,9 +1,21 @@
 //const obama = new whatsapp.GroupChat("GxrW1DZhTxbFp2LMQEYFtB");
 
-const { Client } = require("whatsapp-web.js");
+const { Client, LocalAuth } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
+const fs = require("fs");
+
+function writeFile(fileName, data) {
+	fs.writeFile(fileName, data, function (err) {
+		if (err) {
+			return console.log(err);
+		}
+
+		console.log("The file was saved!");
+	});
+}
 
 const client = new Client({
+	authStrategy: new LocalAuth(),
 	webVersionCache: {
 		type: "remote",
 		remotePath:
@@ -20,10 +32,11 @@ client.on("qr", (qr) => {
 });
 
 client.on("message_create", (message) => {
-	if (message.body === "ping") {
+	writeFile("message.txt", JSON.stringify(message));
+	if (message.body.includes("ping")) {
 		// send back "pong" to the chat the message was sent in
 		client.sendMessage(message.from, "pong");
-	} else if (message.body === "boob") {
+	} else if (message.body.includes("boob")) {
 		client.sendMessage(message.from, "🤤");
 	}
 });
