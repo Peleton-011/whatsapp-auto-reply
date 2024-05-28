@@ -1,4 +1,5 @@
 .wwebjs_auth
+.process.env
 # Logs
 logs
 *.log
