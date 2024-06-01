@@ -7,6 +7,8 @@ const fs = require("fs");
 const { MongoStore } = require("wwebjs-mongo");
 const mongoose = require("mongoose");
 
+const env = require("dotenv").config().parsed;
+
 function writeFile(fileName, data) {
 	fs.writeFile(fileName, data, function (err) {
 		if (err) {
@@ -17,7 +19,7 @@ function writeFile(fileName, data) {
 	});
 }
 
-mongoose.connect(process.env.MONGODB_URI).then(() => {
+mongoose.connect(env.MONGODB_URI).then(() => {
 	const store = new MongoStore({ mongoose: mongoose });
 	const client = new Client({
 		authStrategy: new RemoteAuth({
@@ -37,6 +39,10 @@ mongoose.connect(process.env.MONGODB_URI).then(() => {
 
 	client.on("qr", (qr) => {
 		qrcode.generate(qr, { small: true });
+	});
+
+	client.on("remote_session_saved", () => {
+		console.log("Session saved");
 	});
 
 	client.on("message_create", (message) => {
