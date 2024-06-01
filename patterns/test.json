@@ -1,0 +1,52 @@
+{
+	"patterns": [
+		{
+			"on": {
+				"message": ["bon", ["dia", "matí"]],
+				"tags": ["i"]
+			},
+			"response": [
+				["molt", ""],
+				"bon",
+				"dia",
+				[
+					{
+						"type": "text",
+						"content": "!",
+						"times": [0, 3]
+					},
+					{
+						"type": "emoji",
+						"content": ["faces/love", "hearts"],
+						"times": [0, 3]
+					}
+				]
+			],
+            "tags": ["c"]
+		},
+        {
+			"on": {
+				"message": ["bona", "nit"],
+				"tags": ["i"]
+			},
+			"response": [
+				["molt", ""],
+				"bon",
+				"dia",
+				[
+					{
+						"type": "text",
+						"content": "!",
+						"times": [0, 3]
+					},
+					{
+						"type": "emoji",
+						"content": ["faces/love", "hearts"],
+						"times": [0, 3]
+					}
+				]
+			],
+            "tags": ["c"]
+		}
+	]
+}
