@@ -1,4 +1,3 @@
-//const obama = new whatsapp.GroupChat("GxrW1DZhTxbFp2LMQEYFtB");
 
 const { Client, RemoteAuth } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
@@ -46,6 +45,7 @@ mongoose.connect(env.MONGODB_URI).then(() => {
 	});
 
 	client.on("message_create", (message) => {
+		console.log(message.body);
 		writeFile("message.txt", JSON.stringify(message));
 		if (message.body.includes("ping")) {
 			// send back "pong" to the chat the message was sent in
