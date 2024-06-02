@@ -49,20 +49,19 @@ mongoose.connect(env.MONGODB_URI).then(() => {
 	});
 
 	client.on("message_create", (message) => {
+		if (message.fromMe) {
+			if (message.body === "Stop talking to urself, nerd!") {
+				return;
+			}
+			client.sendMessage(message.from, "Stop talking to urself, nerd!");
+			return;
+		}
 
-        const response = bot.handleNewMessage(message.body)
+		const response = bot.handleNewMessage(message.body);
 
-        if (response) {
-            client.sendMessage(message.from, response);
-        }
-		// console.log(message.body);
-		// writeFile("message.txt", JSON.stringify(message));
-		// if (message.body.includes("ping")) {
-		// 	// send back "pong" to the chat the message was sent in
-		// 	client.sendMessage(message.from, "pong");
-		// } else if (message.body.includes("boob")) {
-		// 	client.sendMessage(message.from, "🤤");
-		// }
+		if (response) {
+			client.sendMessage(message.from, response);
+		}
 	});
 
 	client.initialize();

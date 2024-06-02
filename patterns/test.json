@@ -22,7 +22,7 @@
 					}
 				]
 			],
-            "tags": "c"
+            "tags": "fc"
 		},
         {
 			"on": {
@@ -46,7 +46,22 @@
 					}
 				]
 			],
-            "tags": "c"
-		}
+            "tags": "fc"
+		},
+        {
+            "on": {
+                "message": ["boob"],
+                "tags": "i"
+            },
+            "response": [
+                "awwoooga",
+                {
+                    "type": "text",
+                    "content": "🤤",
+                    "times": [1, 5]
+                }
+            ],
+            "tags": "FC"
+        }
 	]
 }

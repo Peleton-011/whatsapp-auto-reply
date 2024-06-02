@@ -17,7 +17,7 @@ class Bot {
 		if (pattern === null) {
 			return;
 		}
-		return this.generateResponse(pattern.response).trim();
+		return this.generateResponse(pattern.response, pattern.tags);
 	}
 
 	checkAllPatterns(message) {
@@ -45,18 +45,35 @@ class Bot {
 		);
 	}
 
-	checkMessageCondition(condition, message, options) {
+	checkMessageCondition(argcondition, argmessage, options) {
+		const message = options.isCaseInsensitive
+			? argmessage.toLowerCase()
+			: argmessage;
+		const condition = options.isCaseInsensitive
+			? argcondition.toLowerCase()
+			: argcondition;
 		if (typeof condition === "string") {
-			return message.includes(
-				options.isCaseInsensitive ? condition.toLowerCase() : condition
-			);
+			return message.includes(condition);
 		}
 
-		return condition.some((c) => message.includes(c));
+		return condition.some((c) => message.toLowerCase().includes(c));
 	}
 
-	generateResponse(response) {
-		return response.map((item) => this.handleResponseItem(item)).join(" ");
+	generateResponse(response, tags) {
+        const options = {
+            firstCapitalized: tags.includes("fc"),
+            fullCapitalized: tags.includes("FC"),
+        }
+		let finalResponse = response.map((item) => this.handleResponseItem(item)).join(" ").trim();
+
+        if (options.firstCapitalized) {
+            finalResponse = finalResponse.charAt(0).toUpperCase() + finalResponse.slice(1);
+        }
+        if (options.fullCapitalized) {
+            finalResponse = finalResponse.toUpperCase();
+        }
+
+        return finalResponse;
 	}
 
 	handleResponseItem(item) {
