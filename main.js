@@ -10,7 +10,19 @@ const pattern = require("./patterns/test.json");
 
 const bot = new Bot(pattern);
 
-console.log(bot.checkPattern(bot.patterns[0], "bon matí"));
+const testMessages = [
+    "bon matí",
+    "bona nit",
+    "bona matí",
+    "bon dia",
+    "bona bona matí",
+    "bona bona bona nit",
+];
+
+testMessages.forEach((message) => {
+    console.log(bot.checkPattern(bot.patterns[0], message));
+});
+
 /*
 const env = require("dotenv").config().parsed;
 
