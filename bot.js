@@ -57,6 +57,17 @@ class Bot {
 
 	generateResponse(response) {}
 
+	handleResponseItem(item) {
+		if (typeof item === "string") {
+			return item;
+		}
+		if (item.type) {
+			return this.handleResponseObject(item);
+		}
+
+		return this.handleResponseItem(item[getRandomInt(0, item.length - 1)]);
+	}
+
 	handleResponseObject(obj) {
 		let text;
 		switch (obj.type) {
