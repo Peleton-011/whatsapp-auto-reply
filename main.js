@@ -23,6 +23,8 @@ function writeFile(fileName, data) {
 }
 
 mongoose.connect(process.env.MONGODB_URI || env.MONGODB_URI).then(() => {
+    console.log(process.env.MONGODB_URI)
+    console.log(env.MONGODB_URI);
 	const store = new MongoStore({ mongoose: mongoose });
 	const client = new Client({
 		authStrategy: new RemoteAuth({
