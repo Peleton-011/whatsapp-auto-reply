@@ -22,7 +22,7 @@ function writeFile(fileName, data) {
 	});
 }
 
-mongoose.connect(env.MONGODB_URI).then(() => {
+mongoose.connect(process.env.MONGODB_URI || env.MONGODB_URI).then(() => {
 	const store = new MongoStore({ mongoose: mongoose });
 	const client = new Client({
 		authStrategy: new RemoteAuth({
