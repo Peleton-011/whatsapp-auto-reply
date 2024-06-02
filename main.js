@@ -10,6 +10,8 @@ const pattern = require("./patterns/test.json");
 
 const bot = new Bot(pattern);
 
+console.log(bot.checkPattern(bot.patterns[0], "bon matí"));
+/*
 const env = require("dotenv").config().parsed;
 
 function writeFile(fileName, data) {
@@ -61,3 +63,4 @@ mongoose.connect(env.MONGODB_URI).then(() => {
 
 	client.initialize();
 });
+*/
