@@ -46,6 +46,25 @@ class Bot {
 
 		return condition.some((c) => message.includes(c));
 	}
+
+    generateResponse(response) {
+        
+    }
+
+    handleResponseObject(obj) {
+        let text;
+        switch (obj.type) {
+            case "text":
+                text = obj.content;
+                break;
+            case "emoji":
+                text = this.handleEmojiPath(obj.content);
+                break;
+        }
+    }
+
+    handleEmojiPath (path) {
+    }
 }
 
 module.exports = Bot;
