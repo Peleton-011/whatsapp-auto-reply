@@ -64,6 +64,12 @@ class Bot {
     }
 
     handleEmojiPath (path) {
+        const pathParts = ["emojis", ...path.split("/")];
+        console.log(pathParts);
+        return pathParts.reduce((emojis, pathPart ) => {
+            return emojis[pathPart] || this.emojis[pathPart];
+        })
+
     }
 }
 
