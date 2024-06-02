@@ -6,6 +6,14 @@ class Bot {
 		this.patterns = pattern.patterns;
 	}
 
+    handleNewMessage(message) {
+        const pattern = this.checkAllPatterns(message.body);
+        if (pattern === null) {
+            return;
+        }
+        return generateResponse(pattern.response);
+    }
+
     checkAllPatterns(message) {
         let finalPattern = null;
 
