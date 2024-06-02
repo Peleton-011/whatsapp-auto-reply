@@ -10,20 +10,6 @@ const pattern = require("./patterns/test.json");
 
 const bot = new Bot(pattern);
 
-const testMessages = [
-    "bon matí",
-    "bona nit",
-    "bona matí",
-    "bon dia",
-    "bona bona matí",
-    "bona bona bona nit",
-];
-
-testMessages.forEach((message) => {
-    console.log(bot.checkPattern(bot.patterns[0], message));
-});
-
-/*
 const env = require("dotenv").config().parsed;
 
 function writeFile(fileName, data) {
@@ -63,16 +49,21 @@ mongoose.connect(env.MONGODB_URI).then(() => {
 	});
 
 	client.on("message_create", (message) => {
-		console.log(message.body);
-		writeFile("message.txt", JSON.stringify(message));
-		if (message.body.includes("ping")) {
-			// send back "pong" to the chat the message was sent in
-			client.sendMessage(message.from, "pong");
-		} else if (message.body.includes("boob")) {
-			client.sendMessage(message.from, "🤤");
-		}
+
+        const response = bot.handleNewMessage(message.body)
+
+        if (response) {
+            client.sendMessage(message.from, response);
+        }
+		// console.log(message.body);
+		// writeFile("message.txt", JSON.stringify(message));
+		// if (message.body.includes("ping")) {
+		// 	// send back "pong" to the chat the message was sent in
+		// 	client.sendMessage(message.from, "pong");
+		// } else if (message.body.includes("boob")) {
+		// 	client.sendMessage(message.from, "🤤");
+		// }
 	});
 
 	client.initialize();
 });
-*/
