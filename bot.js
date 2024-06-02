@@ -6,6 +6,21 @@ class Bot {
 		this.patterns = pattern.patterns;
 	}
 
+    checkAllPatterns(message) {
+        let finalPattern = null;
+
+        this.patterns.every((pattern) => {
+            const check = this.checkPattern(pattern, message)
+            if (check) {
+                finalPattern = pattern;
+                return false;
+            }
+            return true;
+        });
+
+        return finalPattern;
+    }
+
 	checkPattern(pattern, message) {
 		const options = {
 			isCaseInsensitive: pattern.on.tags.includes("i"),
