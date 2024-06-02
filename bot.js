@@ -8,7 +8,7 @@ class Bot {
 
 	checkPattern(pattern, message) {
 		const options = {
-			isCaseInsensitive: ~pattern.on.tags.indexOf("i"),
+			isCaseInsensitive: pattern.on.tags.includes("i"),
 		};
 
         return pattern.on.message.every((c) => this.checkMessageCondition(c, message, options))

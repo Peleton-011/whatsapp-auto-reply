@@ -2,13 +2,14 @@
 	"patterns": [
 		{
 			"on": {
-				"message": ["bon", ["dia", "matí"]],
-				"tags": ["i"]
+				"message": ["bon", ["dia", "matí", "mati"]],
+				"tags": "i"    
 			},
 			"response": [
 				["molt", ""],
 				"bon",
 				"dia",
+                ["iaia", ""],
 				[
 					{
 						"type": "text",
@@ -22,17 +23,18 @@
 					}
 				]
 			],
-            "tags": ["c"]
+            "tags": "c"
 		},
         {
 			"on": {
 				"message": ["bona", "nit"],
-				"tags": ["i"]
+				"tags": "i"
 			},
 			"response": [
 				["molt", ""],
-				"bon",
-				"dia",
+				"bona",
+				"nit",
+                ["iaia", ""],
 				[
 					{
 						"type": "text",
@@ -46,7 +48,7 @@
 					}
 				]
 			],
-            "tags": ["c"]
+            "tags": "c"
 		}
 	]
 }
