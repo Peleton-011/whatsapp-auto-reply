@@ -10,21 +10,12 @@ const pattern = require("./patterns/test.json");
 
 const bot = new Bot(pattern);
 
-const env = require("dotenv").config().parsed;
+// const env = require("dotenv").config().parsed;
 
-function writeFile(fileName, data) {
-	fs.writeFile(fileName, data, function (err) {
-		if (err) {
-			return console.log(err);
-		}
 
-		console.log("The file was saved!");
-	});
-}
-
-mongoose.connect(process.env.MONGODB_URI || env.MONGODB_URI).then(() => {
-    console.log(process.env.MONGODB_URI)
-    console.log(env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI 
+    //env.MONGODB_URI
+).then(() => {
 	const store = new MongoStore({ mongoose: mongoose });
 	const client = new Client({
 		authStrategy: new RemoteAuth({
@@ -51,6 +42,8 @@ mongoose.connect(process.env.MONGODB_URI || env.MONGODB_URI).then(() => {
 	});
 
 	client.on("message_create", (message) => {
+        console.log(message.body)
+        
 		if (message.fromMe) {
 			if (message.body === "Stop talking to urself, nerd!") {
 				return;
