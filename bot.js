@@ -1,40 +1,48 @@
 emojis = require("./emojis.json");
 
+function getRandomInt(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 class Bot {
 	constructor(pattern) {
 		this.emojis = emojis;
 		this.patterns = pattern.patterns;
 	}
 
-    handleNewMessage(message) {
-        const pattern = this.checkAllPatterns(message.body);
-        if (pattern === null) {
-            return;
-        }
-        return generateResponse(pattern.response);
-    }
+	handleNewMessage(message) {
+		const pattern = this.checkAllPatterns(message.body);
+		if (pattern === null) {
+			return;
+		}
+		return generateResponse(pattern.response);
+	}
 
-    checkAllPatterns(message) {
-        let finalPattern = null;
+	checkAllPatterns(message) {
+		let finalPattern = null;
 
-        this.patterns.every((pattern) => {
-            const check = this.checkPattern(pattern, message)
-            if (check) {
-                finalPattern = pattern;
-                return false;
-            }
-            return true;
-        });
+		this.patterns.every((pattern) => {
+			const check = this.checkPattern(pattern, message);
+			if (check) {
+				finalPattern = pattern;
+				return false;
+			}
+			return true;
+		});
 
-        return finalPattern;
-    }
+		return finalPattern;
+	}
 
 	checkPattern(pattern, message) {
 		const options = {
 			isCaseInsensitive: pattern.on.tags.includes("i"),
 		};
 
-        return pattern.on.message.every((c) => this.checkMessageCondition(c, message, options))
+		return pattern.on.message.every((c) =>
+			this.checkMessageCondition(c, message, options)
+		);
 	}
 
 	checkMessageCondition(condition, message, options) {
@@ -47,30 +55,31 @@ class Bot {
 		return condition.some((c) => message.includes(c));
 	}
 
-    generateResponse(response) {
-        
-    }
+	generateResponse(response) {}
 
-    handleResponseObject(obj) {
-        let text;
-        switch (obj.type) {
-            case "text":
-                text = obj.content;
-                break;
-            case "emoji":
-                text = this.handleEmojiPath(obj.content);
-                break;
-        }
-    }
+	handleResponseObject(obj) {
+		let text;
+		switch (obj.type) {
+			case "text":
+				text = obj.content;
+				break;
+			case "emoji":
+				text = this.handleEmojiPath(obj.content);
+				break;
+		}
 
-    handleEmojiPath (path) {
-        const pathParts = ["emojis", ...path.split("/")];
-        console.log(pathParts);
-        return pathParts.reduce((emojis, pathPart ) => {
-            return emojis[pathPart] || this.emojis[pathPart];
-        })
+		const length = getRandomInt(obj.times[0], obj.times[1]);
 
-    }
+		return new Array(length).fill(text).join("");
+	}
+
+	handleEmojiPath(path) {
+		const pathParts = ["emojis", ...path.split("/")];
+		console.log(pathParts);
+		return pathParts.reduce((emojis, pathPart) => {
+			return emojis[pathPart] || this.emojis[pathPart];
+		});
+	}
 }
 
 module.exports = Bot;
