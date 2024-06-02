@@ -6,10 +6,9 @@
 				"tags": "i"    
 			},
 			"response": [
-				["molt", ""],
+				["molt", "", ""],
 				"bon",
 				"dia",
-                ["iaia", ""],
 				[
 					{
 						"type": "text",
@@ -31,10 +30,9 @@
 				"tags": "i"
 			},
 			"response": [
-				["molt", ""],
+				["molt", "", ""],
 				"bona",
 				"nit",
-                ["iaia", ""],
 				[
 					{
 						"type": "text",

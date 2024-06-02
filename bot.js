@@ -13,11 +13,11 @@ class Bot {
 	}
 
 	handleNewMessage(message) {
-		const pattern = this.checkAllPatterns(message.body);
+		const pattern = this.checkAllPatterns(message);
 		if (pattern === null) {
 			return;
 		}
-		return generateResponse(pattern.response);
+		return this.generateResponse(pattern.response).trim();
 	}
 
 	checkAllPatterns(message) {
@@ -55,7 +55,9 @@ class Bot {
 		return condition.some((c) => message.includes(c));
 	}
 
-	generateResponse(response) {}
+	generateResponse(response) {
+		return response.map((item) => this.handleResponseItem(item)).join(" ");
+	}
 
 	handleResponseItem(item) {
 		if (typeof item === "string") {
@@ -84,12 +86,14 @@ class Bot {
 		return new Array(length).fill(text).join("");
 	}
 
-	handleEmojiPath(path) {
+	handleEmojiPath(argpath) {
+		const path = argpath[getRandomInt(0, argpath.length - 1)];
 		const pathParts = ["emojis", ...path.split("/")];
-		console.log(pathParts);
-		return pathParts.reduce((emojis, pathPart) => {
+		const emojis = pathParts.reduce((emojis, pathPart) => {
 			return emojis[pathPart] || this.emojis[pathPart];
 		});
+
+		return emojis[getRandomInt(0, emojis.length - 1)];
 	}
 }
 
