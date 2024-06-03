@@ -43,6 +43,8 @@ mongoose.connect(process.env.MONGODB_URI
 
 	client.on("message_create", (message) => {
         console.log(message.body)
+
+		console.log(message.body);
         
 		if (message.fromMe) {
 			if (message.body === "Stop talking to urself, nerd!") {
